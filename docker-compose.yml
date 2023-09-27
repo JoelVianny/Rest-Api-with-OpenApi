@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres:latest'
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=product
+      - POSTGRES_DB=product
+      - POSTGRES_PASSWORD=product
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    working_dir:  /app
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/student
+      - SPRING_DATASOURCE_USERNAME=product
+      - SPRING_DATASOURCE_PASSWORD=product
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=product
+    ports:
+      - "8080:8080"
